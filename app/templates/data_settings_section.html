@@ -1,0 +1,90 @@
+ <!-- Data Settings -->
+ <section id="data-settings" class="{{ data_settings_state }}">
+    <h2>Data Settings</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header p-4 bg-dark text-light">
+                    Data Source Configuration
+                </div>
+                <div class="card-body">
+                    <form id="dataSettingsForm">
+                        <div class="form-group">
+                            <label for="dataSource">Select Data Source</label>
+                            <select class="form-control" id="dataSource" onchange="updateDataSourceOptions()">
+                                <option value="api">API</option>
+                                <option value="csv">CSV</option>
+                                <option value="database">Database</option>
+                                <option value="ftp">FTP</option> <!-- Added FTP option -->
+                                <option value="webscraping">Web Scraping</option> <!-- Added Web Scraping option -->
+                            </select>
+                        </div>
+                        
+                        <!-- CSV Upload -->
+                        <div class="form-group mt-3" id="csvFileUpload" style="display: none;">
+                            <label for="csvFile">Upload CSV File</label>
+                            <input type="file" class="form-control" id="csvFile" accept=".csv">
+                        </div>
+                        
+                        <!-- Database Settings -->
+                        <div id="databaseSettings" style="display: none;">
+                            <div class="form-group mt-3">
+                                <label for="dbHost">Database Host</label>
+                                <input type="text" class="form-control" id="dbHost" placeholder="Enter database host">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="dbPort">Database Port</label>
+                                <input type="text" class="form-control" id="dbPort" placeholder="Enter database port">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="dbCredentials">Database Credentials</label>
+                                <input type="text" class="form-control" id="dbCredentials" placeholder="Enter database credentials">
+                            </div>
+                        </div>
+
+                        <!-- FTP Settings -->
+                        <div id="ftpSettings" style="display: none;">
+                            <div class="form-group mt-3">
+                                <label for="ftpHost">FTP Host</label>
+                                <input type="text" class="form-control" id="ftpHost" placeholder="Enter FTP host">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="ftpPort">FTP Port</label>
+                                <input type="text" class="form-control" id="ftpPort" placeholder="Enter FTP port">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="ftpCredentials">FTP Credentials</label>
+                                <input type="text" class="form-control" id="ftpCredentials" placeholder="Enter FTP credentials">
+                            </div>
+                        </div>
+
+                        <!-- Web Scraping Settings -->
+                        <div id="webScrapingSettings" style="display: none;">
+                            <div class="form-group mt-3">
+                                <label for="scrapingUrl">Scraping URL</label>
+                                <input type="text" class="form-control" id="scrapingUrl" placeholder="Enter URL to scrape">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="scrapingSelector">Selector (CSS)</label>
+                                <input type="text" class="form-control" id="scrapingSelector" placeholder="Enter CSS selector">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary rounded-0 mt-3">Save Data Source</button>
+                    </form>
+                    <div class="mt-5">
+                        <h2>Execute Data Functions</h2>
+                        <a href="{{ url_for('main.execute_stock_data_route') }}" class="btn btn-primary m-2">Execute Stock Data</a>
+                        <a href="{{ url_for('main.execute_exchange_data_route') }}" class="btn btn-primary m-2">Execute Exchange Data</a>
+                        <a href="{{ url_for('main.execute_commodity_data_route') }}" class="btn btn-primary m-2">Execute Commodity Data</a>
+                        <a href="{{ url_for('main.execute_index_data_route') }}" class="btn btn-primary m-2">Execute Index Data</a>
+                        <a href="{{ url_for('main.execute_bond_data_route') }}" class="btn btn-primary m-2">Execute Bond Data</a>
+                        <a href="{{ url_for('main.execute_fact_hourly_route') }}" class="btn btn-primary m-2">Execute Fact Hourly Data</a>
+                        <a href="{{ url_for('main.execute_bond_metrics_route') }}" class="btn btn-primary m-2">Execute Bond Metrics</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

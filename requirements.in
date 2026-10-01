@@ -1,0 +1,22 @@
+# requirements.in
+celery
+email_validator
+flask
+flask-login
+flask-sqlalchemy
+flask_migrate
+flask-wtf
+gunicorn
+jinja2
+loguru
+pandas
+plotly
+psycopg2-binary
+python-dotenv
+pyyaml
+redis
+requests
+sqlalchemy
+tdqm
+werkzeug
+wtforms

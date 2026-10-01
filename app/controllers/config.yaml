@@ -1,0 +1,32 @@
+symbols:
+  stocks:
+    - AAPL
+    - MSFT
+    - GOOG
+  commodities:
+    - HGUSD
+    - CLUSD
+    - SIUSD
+    - NGUSD
+    - GCUSD
+  bonds:
+    - treasury
+  indexes:
+    - ^DJI
+    - ^GSPC
+    - ^IXIC
+  exchanges:
+    - NYSE
+    - NASDAQ
+    - LSE
+    - TSE
+    - HKEX
+    - ASX
+    - BSE
+    - SSE
+    - TSX
+    - Euronext
+    - KSE
+    - BMV
+    - SGX
+    - IDX

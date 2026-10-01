@@ -1,0 +1,214 @@
+<!-- Visualization Section -->
+<section id="visualization" class="{{ visualization_state }}">
+    <div class="row mt-4">
+        <form method="POST" action="{{ url_for('main.visualization') }}" class="w-100">
+            
+            <div class="row">
+                <!-- Asset Type -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-lg rounded-3 border-0">
+                        <div class="card-header p-4 text-white fw-bold" 
+                            style="background-color: #007BFF; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">
+                            <h5 class="mb-0">Select Asset Type</h5>
+                        </div>
+                        <div class="card-body">
+                            <select class="form-control rounded-pill" id="asset_type" name="asset_type" onchange="updateSymbols(); updatePlotLines()">
+                                {% for type in asset_types %}
+                                    <option value="{{ type }}" {% if type == selected_type %}selected{% endif %}>{{ type }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+               
+
+                <!-- Symbol -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-lg rounded-3 border-0">
+                        <div class="card-header p-4 text-white fw-bold" 
+                            style="background-color: #007BFF; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">
+                            <h5 class="mb-0">Select Symbol</h5>
+                        </div>
+                        <div class="card-body">
+                            <select class="form-control rounded-pill" id="stock_symbol" name="stock_symbol">
+                                {% for symbol in stock_symbols %}
+                                    <option value="{{ symbol }}" {% if symbol == selected_symbol %}selected{% endif %}>{{ symbol }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Time Frame -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-lg rounded-3 border-0">
+                        <div class="card-header p-4 text-white fw-bold" 
+                            style="background-color: #007BFF; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">
+                            <h5 class="mb-0">Select Time Frame</h5>
+                        </div>
+                        <div class="card-body">
+                            <input type="date" id="start_date" name="start_date" value="{{ start_date }}" class="form-control rounded-pill mb-2">
+                            <input type="date" id="end_date" name="end_date" value="{{ end_date }}" class="form-control rounded-pill">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Type -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-lg rounded-3 border-0">
+                        <div class="card-header p-4 text-white fw-bold" 
+                            style="background-color: #007BFF; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">
+                            <h5 class="mb-0">Chart Type</h5>
+                        </div>
+                        <div class="card-body">
+                            <label for="chartType" class="fw-bold">Select Chart Type</label>
+                            <select class="form-control rounded-pill" id="chartType" name="chartType">
+                                <option value="line">Line Chart</option>
+                                <option value="candlestick">Candlestick</option>
+                                <option value="bar">Bar Chart</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Show/Hide Plot Lines -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-lg rounded-3 border-0">
+                        <div class="card-header p-4 text-white fw-bold" 
+                            style="background-color: #007BFF; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">
+                            <h5 class="mb-0">Show/Hide Plot Lines</h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Stock Options -->
+                            <div id="stock-options">
+                                <div class="form-check">
+                                    <input type="checkbox" id="show_volume" name="show_volume" class="form-check-input" {% if show_volume %}checked{% endif %}>
+                                    <label for="show_volume" class="form-check-label">Volume</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="show_price" name="show_price" class="form-check-input" {% if show_price %}checked{% endif %}>
+                                    <label for="show_price" class="form-check-label">Price</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="show_market_cap" name="show_market_cap" class="form-check-input" {% if show_market_cap %}checked{% endif %}>
+                                    <label for="show_market_cap" class="form-check-label">Market Cap</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="show_eps" name="show_eps" class="form-check-input" {% if show_eps %}checked{% endif %}>
+                                    <label for="show_eps" class="form-check-label">EPS</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="show_pe" name="show_pe" class="form-check-input" {% if show_pe %}checked{% endif %}>
+                                    <label for="show_pe" class="form-check-label">PE</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="show_vwap" name="show_vwap" class="form-check-input" {% if show_vwap %}checked{% endif %}>
+                                    <label for="show_vwap" class="form-check-label">VWAP</label>
+                                </div>
+                            </div>
+            
+                            <!-- Bond Options (Initially Hidden) -->
+                            <div id="bond-options" style="display: none;">
+                                <div class="form-check">
+                                    <input type="checkbox" id="m1_month" name="m1_month" class="form-check-input">
+                                    <label for="m1_month" class="form-check-label">1-Month</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="m2_month" name="m2_month" class="form-check-input">
+                                    <label for="m2_month" class="form-check-label">2-Month</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="m3_month" name="m3_month" class="form-check-input">
+                                    <label for="m3_month" class="form-check-label">3-Month</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="m6_month" name="m6_month" class="form-check-input">
+                                    <label for="m6_month" class="form-check-label">6-Month</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="m1_year" name="m1_year" class="form-check-input">
+                                    <label for="m1_year" class="form-check-label">1-Year</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="m2_year" name="m2_year" class="form-check-input">
+                                    <label for="m2_year" class="form-check-label">2-Year</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="m3_year" name="m3_year" class="form-check-input">
+                                    <label for="m3_year" class="form-check-label">3-Year</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="m5_year" name="m5_year" class="form-check-input">
+                                    <label for="m5_year" class="form-check-label">5-Year</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="m7_year" name="m7_year" class="form-check-input">
+                                    <label for="m7_year" class="form-check-label">7-Year</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="m10_year" name="m10_year" class="form-check-input">
+                                    <label for="m10_year" class="form-check-label">10-Year</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="m20_year" name="m20_year" class="form-check-input">
+                                    <label for="m20_year" class="form-check-label">20-Year</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="m30_year" name="m30_year" class="form-check-input">
+                                    <label for="m30_year" class="form-check-label">30-Year</label>
+                                </div>
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Submit Button -->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-lg text-white fw-bold px-5 py-2 rounded-pill shadow" 
+                        style="background-color: #007BFF; border: none; transition: 0.3s;">
+                        Update
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Graph Display -->
+        <div class="col-md-12 mt-5">
+            <div class="card shadow-lg rounded-3 border-0">
+                <div class="card-header p-4 text-white fw-bold" 
+                    style="background-color: #007BFF; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">
+                    <h5 class="mb-0">Visualization Graph</h5>
+                </div>
+                <div class="card-body">
+                    {{ graph_html | safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function updatePlotLines() {
+        var assetType = document.getElementById("asset_type").value;
+        var stockOptions = document.getElementById("stock-options");
+        var bondOptions = document.getElementById("bond-options");
+
+        if (assetType === "bonds") {
+            stockOptions.style.display = "none";
+            bondOptions.style.display = "block";
+        } else {
+            stockOptions.style.display = "block";
+            bondOptions.style.display = "none";
+        }
+    }
+</script>

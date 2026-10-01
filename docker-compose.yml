@@ -1,0 +1,68 @@
+---
+services:
+  app:
+    build: .
+    image: altrasetl:latest
+    container_name: altrasetl
+    networks:
+      app_network:
+        ipv4_address: 172.20.0.2    
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  db:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    networks:
+      app_network:
+        ipv4_address: 172.20.0.3    
+    ports:
+      - "5432:5432"
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+      - ./postgresql/:/docker-entrypoint-initdb.d/
+    env_file:
+      - .env
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin4
+    restart: always
+    networks:
+      app_network:
+        ipv4_address: 172.20.0.4    
+    ports:
+      - "8888:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    env_file:
+      - .env
+
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    networks:
+      app_network:
+        ipv4_address: 172.20.0.5    
+    ports:
+      - "6379:6379"
+
+volumes:
+  local_pgdata:
+  pgadmin_data:
+  postgresql:
+
+networks:
+  app_network:
+    name: app_network
+    ipam:
+      config:
+        - subnet:  172.20.0.0/24
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"

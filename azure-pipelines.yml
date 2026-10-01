@@ -1,0 +1,10 @@
+trigger:
+- development
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Bash@3
+  inputs:
+    filePath: 'deploy.sh'

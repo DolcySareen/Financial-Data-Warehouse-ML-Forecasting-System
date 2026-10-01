@@ -1,0 +1,43 @@
+<!-- Machine Learning Models -->
+<section id="ml-models" class="{{ ml_models_state }}">
+    <h2>Machine Learning Models</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header p-4 bg-dark text-light">
+                    ML Model Configuration
+                </div>
+                <div class="card-body">
+                    <form id="mlForm">
+                        <div class="form-group">
+                            <label for="modelSelect">Select Model</label>
+                            <select class="form-control" id="modelSelect" onchange="updateModelParameters()">
+                                <option value="regression">Regression</option>
+                                <option value="classification">Classification</option>
+                                <option value="clustering">Clustering</option>
+                                <option value="forecasting">Forecasting</option>
+                                <option value="decisionTree">Decision Tree</option> <!-- Added Decision Tree option -->
+                                <option value="svm">SVM</option> <!-- Added SVM option -->
+                            </select>
+                        </div>
+
+                        <!-- Model Parameters -->
+                        <div class="form-group mt-3" id="modelParametersGroup">
+                            <label for="modelParameters">Model Parameters</label>
+                            <textarea class="form-control" id="modelParameters" rows="4" placeholder="Enter model parameters"></textarea>
+                        </div>
+
+                        <!-- Additional Configurations -->
+                        <div class="form-group mt-3" id="extraParametersGroup" style="display: none;">
+                            <label for="extraParameters">Additional Parameters</label>
+                            <textarea class="form-control" id="extraParameters" rows="4" placeholder="Enter additional parameters"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-success rounded-0 mt-3">Save Model</button>
+                        <button type="button" class="btn btn-secondary rounded-0 mt-3" onclick="resetForm()">Reset</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

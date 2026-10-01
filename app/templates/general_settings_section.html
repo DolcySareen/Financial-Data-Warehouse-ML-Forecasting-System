@@ -1,0 +1,28 @@
+<!-- General Settings -->
+<section id="general-settings" class="{{ general_settings_state }}">
+    <h2>General Settings</h2>
+    <div class="mb-3 p-2 mt-4">
+        <label for="language" class="form-label">Language</label>
+        <select class="form-select" id="language">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+        </select>
+    </div>
+    <div class="mb-3 p-2">
+        <label for="timezone" class="form-label">Time Zone</label>
+        <select class="form-select" id="timezone">
+            <option value="utc">UTC</option>
+            <option value="gmt">GMT</option>
+            <option value="pst">PST</option>
+        </select>
+    </div>
+    <div class="mb-3 p-2">
+        <label for="theme" class="form-label">Theme</label>
+        <select class="form-select" id="theme" onchange="changeTheme()">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+            <option value="dark-light">Dark-Light</option>
+        </select>
+    </div>
+</section>

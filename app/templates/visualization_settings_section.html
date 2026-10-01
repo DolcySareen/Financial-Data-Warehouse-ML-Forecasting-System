@@ -1,0 +1,32 @@
+ <!-- Visualization Settings -->
+ <section id="visualization-settings" class="{{ visualization_settings_state }}">
+    <h2>Visualization Settings</h2>
+    <!-- Visualization Settings Card -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header p-4 bg-dark text-light">
+                Visualization Settings
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="chartType">Chart Type</label>
+                        <select class="form-control" id="chartType">
+                            <option value="line">Line Chart</option>
+                            <option value="candlestick">Candlestick</option>
+                            <option value="bar">Bar Chart</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="charttheme">Theme</label>
+                        <select class="form-control" id="charttheme">
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success rounded-0 mt-3">Save Visualization Settings</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

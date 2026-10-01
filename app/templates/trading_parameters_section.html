@@ -1,0 +1,52 @@
+<!-- Trading Parameters -->
+<section id="trading-parameters" class="{{ trading_parameters_state }}">
+    <h2>Trading Parameters</h2>
+    <!-- Trading Parameters Card -->
+    <div class="col-md-6 mb-4 ">
+        <div class="card">
+            <div class="card-header p-4 bg-dark text-light">
+                Trading Parameters
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="categorySelect">Select Category</label>
+                        <select class="form-control" id="categorySelect">
+                            <option value="stocks">Stocks</option>
+                            <option value="commodities">Commodities</option>
+                            <option value="bonds">Bonds</option>
+                            <option value="indexes">Indexes</option>
+                            <option value="exchange">Exchange</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="symbolSelect">Select Symbol</label>
+                        <select class="form-control" id="symbolSelect">
+                            <option value="AAPL">AAPL</option>
+                            <option value="GOOG">GOOG</option>
+                            <option value="MSFT">MSFT</option>
+                            <option value="HGUSD">HGUSD</option>
+                            <option value="CLUSD">CLUSD</option>
+                            <option value="SIUSD">SIUSD</option>
+                            <option value="NGUSD">NGUSD</option>
+                            <option value="GCUSD">GCUSD</option>
+                            <option value="treasury">Treasury</option>
+                            <option value="^DJI">^DJI</option>
+                            <option value="^GSPC">^GSPC</option>
+                            <option value="is-the-market-open-all">Is the Market Open?</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="buyThreshold">Buy Threshold (%)</label>
+                        <input type="number" class="form-control" id="buyThreshold" placeholder="Enter Buy Threshold">
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="sellThreshold">Sell Threshold (%)</label>
+                        <input type="number" class="form-control" id="sellThreshold" placeholder="Enter Sell Threshold">
+                    </div>
+                    <button type="submit" class="btn btn-success rounded-0 mt-3">Save Parameters</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

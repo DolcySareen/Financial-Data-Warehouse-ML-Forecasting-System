@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoTrading</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="container-fluid m-0 p-0">
+        <!-- Sidebar for navigation -->
+        <div class="sidebar">
+            <h4 class="mx-2 p-2">Settings</h4>
+            <a href="{{ url_for('main.dashboard') }}" class="active" onclick="showContent('dashboard', this)">
+                <i class="fa fa-tachometer mx-2 " aria-hidden="true"></i> Dashboard
+            </a>
+            <a href="{{ url_for('main.visualization') }}" class="" onclick="showContent('visualization', this)">
+                <i class="fa fa-line-chart mx-2 " aria-hidden="true"></i> Visualization
+            </a>
+            <a href="{{ url_for('main.general_settings') }}" class="" onclick="showContent('general-settings', this)">
+                <i class="fa fa-cogs mx-2 " aria-hidden="true"></i> General
+            </a>
+            <a href="{{ url_for('main.trading_parameters') }}" class="" onclick="showContent('trading-parameters', this)">
+                <i class="fa fa-line-chart mx-2" aria-hidden="true"></i> Trading Parameters
+            </a>
+            <a href="{{ url_for('main.ml_models') }}" class="" onclick="showContent('ml-models', this)">
+                <i class="fa fa-language mx-2" aria-hidden="true"></i> ML Models
+            </a>
+            <a href="{{ url_for('main.data_settings') }}" class="" onclick="showContent('data-settings', this)">
+                <i class="fa fa-database mx-2" aria-hidden="true"></i> Data Settings
+            </a>
+            <a href="{{ url_for('main.visualization_settings') }}" class="" onclick="showContent('visualization-settings', this)">
+                <i class="fa fa-eye mx-2" aria-hidden="true"></i> Visualization Settings
+            </a>
+            <a href="{{ url_for('main.logout') }}">
+                <i class="fa fa-sign-out mx-2" aria-hidden="true"></i> Logout
+            </a>    
+        </div>
+
+        <!-- Right side content -->
+        <div class="content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="mt-4">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert alert-dismissible fade show" role="alert">
+                                {{ message | safe}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <!-- Include section templates -->
+            {% include 'visualization_section.html' %}
+            {% include 'general_settings_section.html' %}
+            {% include 'trading_parameters_section.html' %}
+            {% include 'ml_models_section.html' %}
+            {% include 'visualization_settings_section.html' %}
+            {% include 'data_settings_section.html' %}
+            {% include 'dashboard_section.html' %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>
